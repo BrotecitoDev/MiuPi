@@ -1,5 +1,36 @@
-// Traductor bidireccional Español/Broteñol
+// Traductor bidireccional a Broteñol
 
+// Diccionario de palabras completas
+const dictionary = {
+  "hola": "mi-mi",
+  "lindo": "mimi",
+  "queso": "miu pi",
+  "gracias": "mimi-mi mu",
+  "amo": "mi",
+  "te": "mi-mi",
+  "secreto": "xixi",
+  "juego": "miji",
+  "feliz": "vivi",
+  "triste": "nini",
+  "meica": "mei"
+};
+
+// Palabras reservadas de Broteñol
+const broteReserved = {
+  "mi-mi": "hola",
+  "mimi": "lindo",
+  "miu pi": "queso",
+  "mei": "Meica",
+  "mei-mi": "Meica",
+  "mimi-mi": "súper ternura",
+  "mimi-mi mu": "gracias",
+  "xixi": "secreto",
+  "miji": "juego",
+  "vivi": "feliz",
+  "nini": "triste"
+};
+
+// Abecedario letra a broteñol
 const alphabet = {
   a: "mi",
   b: "mimi",
@@ -29,103 +60,105 @@ const alphabet = {
   z: "zizi"
 };
 
-const reservedWords = {
-  "mi": "yo / amor",
-  "mi-mi": "tú",
-  "mii": "muy / mucho",
-  "mimi": "pequeño / lindo",
-  "mei": "Meica",
-  "mei-mi": "Meica",
-  "mei-mimi": "Meica",
-  "miu pi": "queso",
-  "mimi-mi": "súper ternura",
-  "nini": "tristeza",
-  "miji": "juego",
-  "ti": "acción",
-  "xixi": "secreto",
-  "kiki": "emoción intensa",
-  "ru": "advertencia",
-  "wu": "risa",
-  "vivi": "energía alegre",
-  "mñi": "timidez"
-};
-
 const inverseAlphabet = {};
 for (const [letter, brote] of Object.entries(alphabet)) {
-  if (!inverseAlphabet[brote]) {
-    inverseAlphabet[brote] = letter;
-  }
+  inverseAlphabet[brote] = letter;
 }
 
-function containsBrote(text) {
+function limpiarYTraducir() {
+  document.getElementById('outputText').innerText = '';
+  traducir();
+}
+
+function detectBrote(text) {
   const lower = text.toLowerCase();
-  return Object.keys(reservedWords).some(w => lower.includes(w));
+  return Object.keys(broteReserved).some(w => lower.includes(w));
+}
+
+function wordToBroteByLetters(word) {
+  const parts = [];
+  const detail = [];
+  for (const ch of word) {
+    if (alphabet[ch]) {
+      parts.push(alphabet[ch]);
+      detail.push(`${ch}→${alphabet[ch]}`);
+    } else {
+      parts.push(ch);
+      detail.push(`${ch}→${ch}`);
+    }
+  }
+  return { text: parts.join(' '), breakdown: detail };
 }
 
 function toBrote(text) {
-  const lower = text.toLowerCase();
-  let translation = "";
+  const words = text.toLowerCase().trim().split(/\s+/);
+  const result = [];
   const breakdown = [];
-
-  for (const ch of lower) {
-    if (alphabet[ch]) {
-      if (translation && !translation.endsWith(" ")) translation += " ";
-      translation += alphabet[ch];
-      breakdown.push(`${ch}→${alphabet[ch]}`);
+  for (const w of words) {
+    if (dictionary[w]) {
+      result.push(dictionary[w]);
+      breakdown.push(`${w}→${dictionary[w]}`);
     } else {
-      translation += ch;
-      if (ch.trim()) {
-        breakdown.push(`${ch}→${ch}`);
-      }
+      const byLetters = wordToBroteByLetters(w);
+      result.push(byLetters.text);
+      breakdown.push(`${w}→${byLetters.text}`);
     }
   }
+  return { text: result.join(' '), breakdown: breakdown.join('\n') };
+}
 
-  return { text: translation.trim(), breakdown: breakdown.join(", ") };
+function broteWordToLetters(word) {
+  const syllables = word.split(/-+/);
+  const letters = [];
+  const detail = [];
+  for (const s of syllables) {
+    if (inverseAlphabet[s]) {
+      letters.push(inverseAlphabet[s]);
+      detail.push(`${s}→${inverseAlphabet[s]}`);
+    } else {
+      letters.push(s);
+      detail.push(`${s}→${s}`);
+    }
+  }
+  return { text: letters.join(''), breakdown: detail };
 }
 
 function fromBrote(text) {
   const words = text.toLowerCase().trim().split(/\s+/);
-  let i = 0;
-  let translation = "";
+  const result = [];
   const breakdown = [];
-
+  let i = 0;
   while (i < words.length) {
     const current = words[i];
     const next = words[i + 1];
-
-    if (next && reservedWords[`${current} ${next}`]) {
-      const key = `${current} ${next}`;
-      translation += reservedWords[key] + " ";
-      breakdown.push(`${key}→${reservedWords[key]}`);
+    const pair = next ? `${current} ${next}` : null;
+    if (pair && broteReserved[pair]) {
+      result.push(broteReserved[pair]);
+      breakdown.push(`${pair}→${broteReserved[pair]}`);
       i += 2;
       continue;
     }
-
-    if (reservedWords[current]) {
-      translation += reservedWords[current] + " ";
-      breakdown.push(`${current}→${reservedWords[current]}`);
-    } else if (inverseAlphabet[current]) {
-      translation += inverseAlphabet[current];
-      breakdown.push(`${current}→${inverseAlphabet[current]}`);
+    if (broteReserved[current]) {
+      result.push(broteReserved[current]);
+      breakdown.push(`${current}→${broteReserved[current]}`);
     } else {
-      translation += current;
-      breakdown.push(`${current}→${current}`);
+      const byLetters = broteWordToLetters(current);
+      result.push(byLetters.text);
+      breakdown.push(`${current}→${byLetters.text}`);
     }
     i += 1;
   }
-
-  return { text: translation.trim(), breakdown: breakdown.join(", ") };
+  return { text: result.join(' '), breakdown: breakdown.join('\n') };
 }
 
 function traducir() {
-  const input = document.getElementById("inputText").value.trim();
+  const input = document.getElementById('inputText').value.trim();
   if (!input) {
-    document.getElementById("outputText").innerText = "";
+    document.getElementById('outputText').innerText = '';
     return;
   }
-
-  const isBrote = containsBrote(input);
+  const isBrote = detectBrote(input);
   const result = isBrote ? fromBrote(input) : toBrote(input);
-  const output = `Traducción: ${result.text}\n\n🌱 Desglose:\n${result.breakdown}`;
-  document.getElementById("outputText").innerText = output;
+  const output = `${result.text}\n\n🌱 Desglose:\n${result.breakdown}`;
+  document.getElementById('outputText').innerText = output;
 }
