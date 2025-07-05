@@ -100,7 +100,7 @@ function toBrote(text) {
     const lower = original.toLowerCase();
     if (lower === "meica") {
       result.push("mei");
-      breakdown.push("meica → mei");
+      breakdown.push("- meica → mei");
     } else if (reservedNames.includes(lower) || /^[A-ZÁÉÍÓÚÑ]/.test(original)) {
       result.push("mei");
       breakdown.push(`${original} → mei`);
