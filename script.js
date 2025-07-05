@@ -1,68 +1,56 @@
-const esToBrRaw = {
-  "hola":"mi--mi", "adios":"bai-mi", "gracias":"mimi-mimu", "por":"mii",
-  "favor":"xixi", "perdón":"ni-nimii", "te":"mi-mi", "amo":"mi",
-  "quiero":"mi", "amor":"mimi", "feliz":"vivi", "triste":"nini",
-  "miedo":"ru-ni", "secreto":"xixi", "risa":"miji", "juego":"miji",
-  "magia":"yii-mei", "queso":"miupi", "pequeño":"mimi", "grande":"miimii",
-  "rápido":"vivity", "lento":"timu", "suave":"mimimu", "duro":"meiru",
-  "meica":"mei", "luis":"mei", "diego":"mie", "ir":"miuti", "venir":"tini",
-  "mirar":"yiiti", "hablar":"mijini", "dormir":"mumu", "comer":"pipi",
-  "beber":"mupi", "cansado":"munini", "emocionado":"kikivivi",
-  "sorprendido":"yiiwu", "hoy":"mi-miti", "mañana":"miini", "ayer":"runi",
-  "siempre":"wuwu", "nunca":"nininini", "culona":"muku", "pene":"mupi",
-  "muslo":"miwu", "tetona":"misi", "hermosa":"miyi", "princesa":"muki",
+const esToBr = {
+  "hola":"mimi", "culona":"muku", "queso":"miupi", "yo":"mi", "tu":"ti",
+  "usted":"usti", "el":"mu", "ella":"mimiu", "nosotros":"nosi",
+  "ellos":"lomu", "ellas":"momi", "de":"miu", "la":"mimi", "en":"nui",
+  "y":"yii", "a":"mi", "los":"lisi", "las":"lasi", "un":"numi",
+  "una":"nami", "por":"mii", "con":"muku", "para":"paru", "sin":"suni",
+  "del":"miku", "al":"mila", "soy":"soi", "eres":"ersi", "es":"esi",
+  "somos":"somi", "son":"suni", "que":"ku", "como":"miomu",
+  "cuando":"kuni", "donde":"doni", "quien":"quin", "cual":"kuli",
+  "porque":"poku", "pero":"peru", "mas":"masi", "menos":"menoi",
+  "muy":"muyi", "todo":"todu", "nada":"nami", "algo":"alpi", "si":"sii",
+  "no":"nuimu", "ya":"ya", "ahora":"auri", "despues":"desu",
+  "antes":"anti", "mi":"mui", "mis":"misi", "tu":"tiu", "tus":"tusi",
+  "su":"sumi", "sus":"susi", "nuestro":"nusu", "nuestros":"nusis",
+  "hoy":"mimiti", "mañana":"miini", "ayer":"runi", "siempre":"wuwu",
+  "nunca":"ninin", "amor":"mimiu", "amigo":"mimo", "familia":"fami",
+  "casa":"cami", "trabajo":"tamu", "escuela":"escu", "dinero":"dini",
+  "tiempo":"temu", "mano":"mumi", "ojo":"omu", "boca":"bomi",
+  "cabeza":"kabi", "corazon":"kori", "feliz":"vify", "triste":"nini",
+  "miedo":"runi", "enojo":"noku", "risa":"miji", "sueño":"sumi",
+  "hambre":"hami", "sed":"semi", "agua":"agu", "comida":"codi",
+  "coche":"cochi", "calle":"kali", "luz":"luzi", "puerta":"puti",
+  "ventana":"veni", "mesa":"mesi", "silla":"sili", "juego":"miji",
+  "musica":"musi", "baile":"bai", "fiesta":"fesi", "hermosa":"miyi",
+  "princesa":"muki", "pene":"mupi", "muslo":"miwu", "tetona":"misi",
   "pinchechota":"muzi"
 };
 
 const brToEs = {
-  // saludos
-  "mi--mi": "hola",
-  // pronombres
-  "mi-mi": "te",
-  // vocabulario general
-  "bai-mi": "adios",
-  "mimi-mimu": "gracias",
-  "mii": "por",
-  "xixi": "favor",
-  "ni-nimii": "perdón",
-  "mi": "amo",
-  "mimi": "amor",
-  "vivi": "feliz",
-  "nini": "triste",
-  "ru-ni": "miedo",
-  "miji": "juego",
-  "yii-mei": "magia",
-  "miupi": "queso",
-  "mimi": "pequeño",
-  "miimii": "grande",
-  "vivity": "rápido",
-  "timu": "lento",
-  "mimimu": "suave",
-  "meiru": "duro",
-  "mei": "meica",
-  "mie": "diego",
-  "miuti": "ir",
-  "tini": "venir",
-  "yiiti": "mirar",
-  "mijini": "hablar",
-  "mumu": "dormir",
-  "pipi": "comer",
-  "mupi": "beber",
-  "munini": "cansado",
-  "kikivivi": "emocionado",
-  "yiiwu": "sorprendido",
-  "mi-miti": "hoy",
-  "miini": "mañana",
-  "runi": "ayer",
-  "wuwu": "siempre",
-  "nininini": "nunca",
-  "muku": "culona",
-  "mupi": "pene",
-  "miwu": "muslo",
-  "misi": "tetona",
-  "miyi": "hermosa",
-  "muki": "princesa",
-  "muzi": "pinchechota",
+  "mimi":"hola", "muku":"culona", "miupi":"queso", "mi":"yo", "ti":"tu",
+  "usti":"usted", "mu":"el", "mimiu":"ella", "nosi":"nosotros",
+  "lomu":"ellos", "momi":"ellas", "miu":"de", "mimi":"la", "nui":"en",
+  "yii":"y", "mi":"a", "lisi":"los", "lasi":"las", "numi":"un",
+  "nami":"una", "mii":"por", "muku":"con", "paru":"para", "suni":"sin",
+  "miku":"del", "mila":"al", "soi":"soy", "ersi":"eres", "esi":"es",
+  "somi":"somos", "suni":"son", "ku":"que", "miomu":"como", "kuni":"cuando",
+  "doni":"donde", "quin":"quien", "kuli":"cual", "poku":"porque",
+  "peru":"pero", "masi":"mas", "menoi":"menos", "muyi":"muy",
+  "todu":"todo", "nami":"nada", "alpi":"algo", "sii":"si", "nuimu":"no",
+  "ya":"ya", "auri":"ahora", "desu":"despues", "anti":"antes", "mui":"mi",
+  "misi":"mis", "tiu":"tu", "tusi":"tus", "sumi":"su", "susi":"sus",
+  "nusu":"nuestro", "nusis":"nuestros", "mimiti":"hoy", "miini":"mañana",
+  "runi":"ayer", "wuwu":"siempre", "ninin":"nunca", "mimiu":"amor",
+  "mimo":"amigo", "fami":"familia", "cami":"casa", "tamu":"trabajo",
+  "escu":"escuela", "dini":"dinero", "temu":"tiempo", "mumi":"mano",
+  "omu":"ojo", "bomi":"boca", "kabi":"cabeza", "kori":"corazon",
+  "vify":"feliz", "nini":"triste", "runi":"miedo", "noku":"enojo",
+  "miji":"risa", "sumi":"sueño", "hami":"hambre", "semi":"sed",
+  "agu":"agua", "codi":"comida", "cochi":"coche", "kali":"calle",
+  "luzi":"luz", "puti":"puerta", "veni":"ventana", "mesi":"mesa",
+  "sili":"silla", "miji":"juego", "musi":"musica", "bai":"baile",
+  "fesi":"fiesta", "miyi":"hermosa", "muki":"princesa", "mupi":"pene",
+  "miwu":"muslo", "misi":"tetona", "muzi":"pinchechota"
 };
 
 const esAlphabet = {
@@ -80,11 +68,6 @@ const brTokens = Object.keys(brAlphabet).sort((a,b) => b.length - a.length);
 
 function normalize(str) {
   return str.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-}
-
-const esToBr = {};
-for (const [k,v] of Object.entries(esToBrRaw)) {
-  esToBr[normalize(k)] = v;
 }
 
 function parseBrWord(word) {
@@ -122,7 +105,7 @@ function translateEsToBr(text) {
       for (const ch of key) {
         tokens.push(esAlphabet[ch] || ch);
       }
-      const tr = tokens.join('');
+      const tr = tokens.join(' ');
       result.push(tr);
       detail.push(`${w}→${tr}`);
     }
