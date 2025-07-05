@@ -1,7 +1,7 @@
 const esToBr = {
   "hola":"mimi", "culona":"muku", "queso":"miupi", "yo":"mi", "tu":"ti",
   "usted":"usti", "el":"mu", "ella":"mimiu", "nosotros":"nosi",
-  "ellos":"lomu", "ellas":"momi", "de":"miu", "la":"mimi", "en":"nui",
+  "ellos":"lomu", "ellas":"momi", "de":"miu", "la":"my", "en":"nui",
   "y":"yii", "a":"mi", "los":"lisi", "las":"lasi", "un":"numi",
   "una":"nami", "por":"mii", "con":"muku", "para":"paru", "sin":"suni",
   "del":"miku", "al":"mila", "soy":"soi", "eres":"ersi", "es":"esi",
@@ -29,7 +29,7 @@ const esToBr = {
 const brToEs = {
   "mimi":"hola", "muku":"culona", "miupi":"queso", "mi":"yo", "ti":"tu",
   "usti":"usted", "mu":"el", "mimiu":"ella", "nosi":"nosotros",
-  "lomu":"ellos", "momi":"ellas", "miu":"de", "mimi":"la", "nui":"en",
+  "lomu":"ellos", "momi":"ellas", "miu":"de", "my":"la", "nui":"en",
   "yii":"y", "mi":"a", "lisi":"los", "lasi":"las", "numi":"un",
   "nami":"una", "mii":"por", "muku":"con", "paru":"para", "suni":"sin",
   "miku":"del", "mila":"al", "soi":"soy", "ersi":"eres", "esi":"es",
