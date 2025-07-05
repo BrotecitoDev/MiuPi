@@ -57,8 +57,8 @@ const brToEs = {
 };
 
 const esAlphabet = {
-  a:"mi", b:"mimi", c:"mii", d:"mei", e:"ni", f:"mu", g:"pi", h:"miji",
-  i:"mu", j:"mei", k:"miu", l:"mimi", m:"mii", n:"ni", o:"mu", p:"pi",
+  a:"mi", b:"mimi", c:"mii", d:"mei", e:"ni", f:"mu", g:"pii", h:"miji",
+  i:"mu", j:"mei", k:"miu", l:"mimi", m:"mii", n:"nui", o:"mu", p:"pi",
   q:"ku", r:"ru", s:"si", t:"ti", u:"mu", v:"vivi", w:"wu", x:"xixi",
   y:"yii", z:"zizi"
 };
