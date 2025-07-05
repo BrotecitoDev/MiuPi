@@ -15,15 +15,16 @@ const dictionary = {
   "meica": "mei"
 };
 
-// Palabras reservadas de Broteñol
+// Lista de nombres reservados
+const reservedNames = ["meica", "luis"];
+
+// Palabras broteñolas reservadas para traducción inversa
 const broteReserved = {
   "mi-mi": "hola",
   "mimi": "lindo",
   "miu pi": "queso",
   "mei": "Meica",
-  "mei-mi": "Meica",
   "mimi-mi": "súper ternura",
-  "mimi-mi mu": "gracias",
   "xixi": "secreto",
   "miji": "juego",
   "vivi": "feliz",
@@ -66,45 +67,53 @@ for (const [letter, brote] of Object.entries(alphabet)) {
 }
 
 function limpiarYTraducir() {
-  document.getElementById('outputText').innerText = '';
+  document.getElementById("outputText").innerHTML = "";
   traducir();
 }
 
 function detectBrote(text) {
   const lower = text.toLowerCase();
-  return Object.keys(broteReserved).some(w => lower.includes(w));
+  return Object.keys(broteReserved).some((w) => lower.includes(w));
 }
 
 function wordToBroteByLetters(word) {
   const parts = [];
   const detail = [];
   for (const ch of word) {
-    if (alphabet[ch]) {
-      parts.push(alphabet[ch]);
-      detail.push(`${ch}→${alphabet[ch]}`);
+    const lower = ch.toLowerCase();
+    if (alphabet[lower]) {
+      parts.push(alphabet[lower]);
+      detail.push(`${ch}→${alphabet[lower]}`);
     } else {
       parts.push(ch);
       detail.push(`${ch}→${ch}`);
     }
   }
-  return { text: parts.join(' '), breakdown: detail };
+  return { text: parts.join(" "), breakdown: detail };
 }
 
 function toBrote(text) {
-  const words = text.toLowerCase().trim().split(/\s+/);
+  const words = text.trim().split(/\s+/);
   const result = [];
   const breakdown = [];
-  for (const w of words) {
-    if (dictionary[w]) {
-      result.push(dictionary[w]);
-      breakdown.push(`${w}→${dictionary[w]}`);
+  for (const original of words) {
+    const lower = original.toLowerCase();
+    if (dictionary[lower]) {
+      result.push(dictionary[lower]);
+      breakdown.push(`${original} → ${dictionary[lower]}`);
+    } else if (lower === "diego") {
+      result.push("mie");
+      breakdown.push(`${original} → mie`);
+    } else if (reservedNames.includes(lower) || /^[A-ZÁÉÍÓÚÑ]/.test(original)) {
+      result.push("mei");
+      breakdown.push(`${original} → mei`);
     } else {
-      const byLetters = wordToBroteByLetters(w);
+      const byLetters = wordToBroteByLetters(original);
       result.push(byLetters.text);
-      breakdown.push(`${w}→${byLetters.text}`);
+      breakdown.push(`${original} → ${byLetters.detail.join(" ")}`);
     }
   }
-  return { text: result.join(' '), breakdown: breakdown.join('\n') };
+  return { text: result.join(" "), breakdown: breakdown.join("\n") };
 }
 
 function broteWordToLetters(word) {
@@ -120,7 +129,7 @@ function broteWordToLetters(word) {
       detail.push(`${s}→${s}`);
     }
   }
-  return { text: letters.join(''), breakdown: detail };
+  return { text: letters.join(""), breakdown: detail };
 }
 
 function fromBrote(text) {
@@ -134,31 +143,37 @@ function fromBrote(text) {
     const pair = next ? `${current} ${next}` : null;
     if (pair && broteReserved[pair]) {
       result.push(broteReserved[pair]);
-      breakdown.push(`${pair}→${broteReserved[pair]}`);
+      breakdown.push(`${pair} → ${broteReserved[pair]}`);
       i += 2;
       continue;
     }
     if (broteReserved[current]) {
       result.push(broteReserved[current]);
-      breakdown.push(`${current}→${broteReserved[current]}`);
+      breakdown.push(`${current} → ${broteReserved[current]}`);
     } else {
       const byLetters = broteWordToLetters(current);
       result.push(byLetters.text);
-      breakdown.push(`${current}→${byLetters.text}`);
+      breakdown.push(`${current} → ${byLetters.detail.join(" ")}`);
     }
     i += 1;
   }
-  return { text: result.join(' '), breakdown: breakdown.join('\n') };
+  return { text: result.join(" "), breakdown: breakdown.join("\n") };
 }
 
 function traducir() {
-  const input = document.getElementById('inputText').value.trim();
+  const input = document.getElementById("inputText").value.trim();
+  const outputDiv = document.getElementById("outputText");
+  outputDiv.innerHTML = "";
   if (!input) {
-    document.getElementById('outputText').innerText = '';
+    return;
+  }
+  if (input === "Diego") {
+    outputDiv.innerHTML =
+      '<img src="https://cdn.discordapp.com/emojis/1072634447196864644.webp?size=128" alt="Diego emoji"/>';
     return;
   }
   const isBrote = detectBrote(input);
   const result = isBrote ? fromBrote(input) : toBrote(input);
   const output = `${result.text}\n\n🌱 Desglose:\n${result.breakdown}`;
-  document.getElementById('outputText').innerText = output;
+  outputDiv.innerText = output;
 }
