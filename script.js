@@ -98,19 +98,22 @@ function toBrote(text) {
   const breakdown = [];
   for (const original of words) {
     const lower = original.toLowerCase();
-    if (dictionary[lower]) {
+    if (lower === "meica") {
+      result.push("mei");
+      breakdown.push("meica → mei");
+    } else if (reservedNames.includes(lower) || /^[A-ZÁÉÍÓÚÑ]/.test(original)) {
+      result.push("mei");
+      breakdown.push(`${original} → mei`);
+    } else if (dictionary[lower]) {
       result.push(dictionary[lower]);
       breakdown.push(`${original} → ${dictionary[lower]}`);
     } else if (lower === "diego") {
       result.push("mie");
       breakdown.push(`${original} → mie`);
-    } else if (reservedNames.includes(lower) || /^[A-ZÁÉÍÓÚÑ]/.test(original)) {
-      result.push("mei");
-      breakdown.push(`${original} → mei`);
     } else {
       const byLetters = wordToBroteByLetters(original);
       result.push(byLetters.text);
-      breakdown.push(`${original} → ${byLetters.detail.join(" ")}`);
+      breakdown.push(`${original} → ${byLetters.breakdown.join(" ")}`);
     }
   }
   return { text: result.join(" "), breakdown: breakdown.join("\n") };
@@ -153,7 +156,7 @@ function fromBrote(text) {
     } else {
       const byLetters = broteWordToLetters(current);
       result.push(byLetters.text);
-      breakdown.push(`${current} → ${byLetters.detail.join(" ")}`);
+      breakdown.push(`${current} → ${byLetters.breakdown.join(" ")}`);
     }
     i += 1;
   }
