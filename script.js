@@ -1,15 +1,15 @@
 const esToBrRaw = {
-  "hola":"mi--mi", "adios":"bai-mi", "gracias":"mimi-mi mu", "por":"mii",
-  "favor":"xixi", "perdón":"ni-ni mii", "te":"mi-mi", "amo":"mi",
-  "quiero":"mi", "amor":"mi mi", "feliz":"vivi", "triste":"nini",
+  "hola":"mi--mi", "adios":"bai-mi", "gracias":"mimi-mimu", "por":"mii",
+  "favor":"xixi", "perdón":"ni-nimii", "te":"mi-mi", "amo":"mi",
+  "quiero":"mi", "amor":"mimi", "feliz":"vivi", "triste":"nini",
   "miedo":"ru-ni", "secreto":"xixi", "risa":"miji", "juego":"miji",
-  "magia":"yii-mei", "queso":"miu pi", "pequeño":"mimi", "grande":"mii mii",
-  "rápido":"vivi ti", "lento":"ti mu", "suave":"mimi mu", "duro":"mei ru",
-  "meica":"mei", "luis":"mei", "diego":"mie", "ir":"miu ti", "venir":"ti ni",
-  "mirar":"yii ti", "hablar":"miji ni", "dormir":"mu mu", "comer":"pi pi",
-  "beber":"mu pi", "cansado":"mu nini", "emocionado":"kiki vivi",
-  "sorprendido":"yii wu", "hoy":"mi-mi ti", "mañana":"mii ni", "ayer":"ru ni",
-  "siempre":"wu wu", "nunca":"nini nini", "culona":"muku", "pene":"mupi",
+  "magia":"yii-mei", "queso":"miupi", "pequeño":"mimi", "grande":"miimii",
+  "rápido":"vivity", "lento":"timu", "suave":"mimimu", "duro":"meiru",
+  "meica":"mei", "luis":"mei", "diego":"mie", "ir":"miuti", "venir":"tini",
+  "mirar":"yiiti", "hablar":"mijini", "dormir":"mumu", "comer":"pipi",
+  "beber":"mupi", "cansado":"munini", "emocionado":"kikivivi",
+  "sorprendido":"yiiwu", "hoy":"mi-miti", "mañana":"miini", "ayer":"runi",
+  "siempre":"wuwu", "nunca":"nininini", "culona":"muku", "pene":"mupi",
   "muslo":"miwu", "tetona":"misi", "hermosa":"miyi", "princesa":"muki",
   "pinchechota":"muzi"
 };
@@ -21,41 +21,41 @@ const brToEs = {
   "mi-mi": "te",
   // vocabulario general
   "bai-mi": "adios",
-  "mimi-mi mu": "gracias",
+  "mimi-mimu": "gracias",
   "mii": "por",
   "xixi": "favor",
-  "ni-ni mii": "perdón",
+  "ni-nimii": "perdón",
   "mi": "amo",
-  "mi mi": "amor",
+  "mimi": "amor",
   "vivi": "feliz",
   "nini": "triste",
   "ru-ni": "miedo",
   "miji": "juego",
   "yii-mei": "magia",
-  "miu pi": "queso",
+  "miupi": "queso",
   "mimi": "pequeño",
-  "mii mii": "grande",
-  "vivi ti": "rápido",
-  "ti mu": "lento",
-  "mimi mu": "suave",
-  "mei ru": "duro",
+  "miimii": "grande",
+  "vivity": "rápido",
+  "timu": "lento",
+  "mimimu": "suave",
+  "meiru": "duro",
   "mei": "meica",
   "mie": "diego",
-  "miu ti": "ir",
-  "ti ni": "venir",
-  "yii ti": "mirar",
-  "miji ni": "hablar",
-  "mu mu": "dormir",
-  "pi pi": "comer",
-  "mu pi": "beber",
-  "mu nini": "cansado",
-  "kiki vivi": "emocionado",
-  "yii wu": "sorprendido",
-  "mi-mi ti": "hoy",
-  "mii ni": "mañana",
-  "ru ni": "ayer",
-  "wu wu": "siempre",
-  "nini nini": "nunca",
+  "miuti": "ir",
+  "tini": "venir",
+  "yiiti": "mirar",
+  "mijini": "hablar",
+  "mumu": "dormir",
+  "pipi": "comer",
+  "mupi": "beber",
+  "munini": "cansado",
+  "kikivivi": "emocionado",
+  "yiiwu": "sorprendido",
+  "mi-miti": "hoy",
+  "miini": "mañana",
+  "runi": "ayer",
+  "wuwu": "siempre",
+  "nininini": "nunca",
   "muku": "culona",
   "mupi": "pene",
   "miwu": "muslo",
@@ -109,22 +109,24 @@ function translateEsToBr(text) {
 }
 
 function translateBrToEs(text) {
-  const cleaned = text.trim().toLowerCase();
-  if (!cleaned) return { text: '', breakdown: '' };
+  const tokens = text.trim().toLowerCase().split(/\s+/).filter(Boolean);
+  if (!tokens.length) return { text: '', breakdown: '' };
 
-  if (brToEs[cleaned]) {
-    return { text: brToEs[cleaned], breakdown: `${cleaned}→${brToEs[cleaned]} |` };
-  }
-
-  const tokens = cleaned.split(/\s+/);
-  const letters = [];
+  let result = '';
   const detail = [];
-  for (const t of tokens) {
-    const ch = brAlphabet[t] || '';
-    letters.push(ch);
-    detail.push(`${t}→${ch}`);
-  }
-  return { text: letters.join(''), breakdown: detail.join(' | ') + ' |' };
+  tokens.forEach((t, i) => {
+    if (brToEs[t]) {
+      result += brToEs[t];
+      if (i < tokens.length - 1) result += ' ';
+      detail.push(`${t}→${brToEs[t]}`);
+    } else {
+      const ch = brAlphabet[t] || '';
+      result += ch;
+      detail.push(`${t}→${ch}`);
+    }
+  });
+
+  return { text: result, breakdown: detail.join(' | ') + ' |' };
 }
 
 function clearResult() {
