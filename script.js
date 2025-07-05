@@ -129,10 +129,11 @@ function translateBrToEs(text) {
       const parts = inside.split(/\s+/).filter(Boolean);
       let letters = '';
       parts.forEach(p => {
-        letters += brAlphabet[p] || parseBrWord(p);
+        const letter = brAlphabet[p] || parseBrWord(p);
+        letters += letter;
+        detail.push(`${p}→${letter}`);
       });
       words.push(letters);
-      detail.push(`${t}→${letters}`);
     } else if (brToEs[t]) {
       words.push(brToEs[t]);
       detail.push(`${t}→${brToEs[t]}`);
