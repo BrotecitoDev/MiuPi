@@ -15,8 +15,6 @@ const dictionary = {
   "meica": "mei"
 };
 
-// Lista de nombres reservados
-const reservedNames = ["meica", "luis"];
 
 // Palabras broteñolas reservadas para traducción inversa
 const broteReserved = {
@@ -101,9 +99,6 @@ function toBrote(text) {
     if (lower === "meica") {
       result.push("mei");
       breakdown.push("- meica → mei");
-    } else if (reservedNames.includes(lower) || /^[A-ZÁÉÍÓÚÑ]/.test(original)) {
-      result.push("mei");
-      breakdown.push(`${original} → mei`);
     } else if (dictionary[lower]) {
       result.push(dictionary[lower]);
       breakdown.push(`${original} → ${dictionary[lower]}`);
