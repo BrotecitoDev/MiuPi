@@ -1,34 +1,19 @@
-let model;
-const spanish = ['hola','adios','gracias','queso','amor'];
-const brote = ['mi-mi','bai-mi','mimi-mi mu','miu pi','mi mi'];
-const wordToId = {};
-spanish.forEach((w,i)=>{wordToId[w]=i;});
+const dictionary = {
+  'hola': 'mi-mi',
+  'adios': 'bai-mi',
+  'gracias': 'mimi-mi mu',
+  'queso': 'miu pi',
+  'amor': 'mi mi'
+};
 
-async function loadModel() {
-  model = await tf.loadLayersModel('model.json');
-}
-
-async function translate() {
+function translate() {
   const text = document.getElementById('inputText').value.trim().toLowerCase();
-  if(!text || !model) return;
+  if (!text) return;
   const words = text.split(/\s+/);
-  const out = [];
-  for(const w of words) {
-    const id = wordToId[w];
-    if(id === undefined) {
-      out.push('[desconocido]');
-      continue;
-    }
-    const input = tf.tensor2d([[id]]);
-    const pred = model.predict(input);
-    const idx = (await pred.argMax(-1).data())[0];
-    out.push(brote[idx]);
-    tf.dispose([input,pred]);
-  }
+  const out = words.map(w => dictionary[w] || '[desconocido]');
   document.getElementById('outputText').innerText = out.join(' ');
 }
 
-document.addEventListener('DOMContentLoaded', ()=>{
-  loadModel();
+document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('translateBtn').addEventListener('click', translate);
 });
