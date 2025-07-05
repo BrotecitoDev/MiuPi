@@ -9,7 +9,9 @@ const esToBrRaw = {
   "mirar":"yii ti", "hablar":"miji ni", "dormir":"mu mu", "comer":"pi pi",
   "beber":"mu pi", "cansado":"mu nini", "emocionado":"kiki vivi",
   "sorprendido":"yii wu", "hoy":"mi-mi ti", "mañana":"mii ni", "ayer":"ru ni",
-  "siempre":"wu wu", "nunca":"nini nini"
+  "siempre":"wu wu", "nunca":"nini nini", "culona":"muku", "pene":"mupi",
+  "muslo":"miwu", "tetona":"misi", "hermosa":"miyi", "princesa":"muki",
+  "pinchechota":"muzi"
 };
 
 const brToEs = {
@@ -54,6 +56,13 @@ const brToEs = {
   "ru ni": "ayer",
   "wu wu": "siempre",
   "nini nini": "nunca",
+  "muku": "culona",
+  "mupi": "pene",
+  "miwu": "muslo",
+  "misi": "tetona",
+  "miyi": "hermosa",
+  "muki": "princesa",
+  "muzi": "pinchechota",
 };
 
 const esAlphabet = {
