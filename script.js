@@ -56,11 +56,13 @@ const brToEs = {
   "mei":"meica", "mie":"diego" 
 };
 
+// Nuevo alfabeto broteñol sin colisiones
 const esAlphabet = {
-  a:"mi", b:"mimi", c:"mii", d:"mei", e:"ni", f:"mu", g:"pii", h:"miji",
-  i:"mu", j:"mei", k:"miu", l:"miimi", m:"mii", n:"nui", o:"mu", p:"pi",
-  q:"ku", r:"ru", s:"si", t:"ti", u:"mu", v:"vivi", w:"wu", x:"xixi",
-  y:"yii", z:"zizi"
+  a: "mi",  b: "bii",  c: "cii",  d: "dii",  e: "eii",  f: "fii",
+  g: "pii", h: "hii",  i: "iii", j: "mei", k: "kii", l: "lii",
+  m: "mii", n: "nii", o: "moo", p: "pi",  q: "qui", r: "ri",
+  s: "si",  t: "ti",  u: "muu", v: "vi",  w: "wi",  x: "xi",
+  y: "yi",  z: "zi"
 };
 
 const brAlphabet = {};
