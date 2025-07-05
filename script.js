@@ -184,6 +184,16 @@ function handleToEs() {
   showResult(res);
 }
 
+function speakResult() {
+  const div = document.getElementById('result');
+  const text = div.innerText.trim();
+  if (!text) return;
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = 'es-ES';
+  speechSynthesis.cancel();
+  speechSynthesis.speak(utterance);
+}
+
 window.addEventListener('DOMContentLoaded', () => {
   const input = document.getElementById('text-input');
   input.addEventListener('input', () => {
@@ -192,4 +202,5 @@ window.addEventListener('DOMContentLoaded', () => {
   });
   document.getElementById('to-bro').addEventListener('click', handleToBro);
   document.getElementById('to-es').addEventListener('click', handleToEs);
+  document.getElementById('speak').addEventListener('click', speakResult);
 });
