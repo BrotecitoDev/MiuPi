@@ -13,16 +13,47 @@ const esToBrRaw = {
 };
 
 const brToEs = {
-  "mi--mi":"hola", "bai-mi":"adios", "mimi-mi mu":"gracias", "mii":"por",
-  "xixi":"favor", "ni-ni mii":"perdón", "mi-mi":"te", "mi":"amo", "mi mi":"amor",
-  "vivi":"feliz", "nini":"triste", "ru-ni":"miedo", "miji":"juego",
-  "yii-mei":"magia", "miu pi":"queso", "mimi":"pequeño", "mii mii":"grande",
-  "vivi ti":"rápido", "ti mu":"lento", "mimi mu":"suave", "mei ru":"duro",
-  "mei":"meica", "mie":"diego", "miu ti":"ir", "ti ni":"venir",
-  "yii ti":"mirar", "miji ni":"hablar", "mu mu":"dormir", "pi pi":"comer",
-  "mu pi":"beber", "mu nini":"cansado", "kiki vivi":"emocionado",
-  "yii wu":"sorprendido", "mi-mi ti":"hoy", "mii ni":"mañana",
-  "ru ni":"ayer", "wu wu":"siempre", "nini nini":"nunca"
+  // saludos
+  "mi--mi": "hola",
+  // pronombres
+  "mi-mi": "te",
+  // vocabulario general
+  "bai-mi": "adios",
+  "mimi-mi mu": "gracias",
+  "mii": "por",
+  "xixi": "favor",
+  "ni-ni mii": "perdón",
+  "mi": "amo",
+  "mi mi": "amor",
+  "vivi": "feliz",
+  "nini": "triste",
+  "ru-ni": "miedo",
+  "miji": "juego",
+  "yii-mei": "magia",
+  "miu pi": "queso",
+  "mimi": "pequeño",
+  "mii mii": "grande",
+  "vivi ti": "rápido",
+  "ti mu": "lento",
+  "mimi mu": "suave",
+  "mei ru": "duro",
+  "mei": "meica",
+  "mie": "diego",
+  "miu ti": "ir",
+  "ti ni": "venir",
+  "yii ti": "mirar",
+  "miji ni": "hablar",
+  "mu mu": "dormir",
+  "pi pi": "comer",
+  "mu pi": "beber",
+  "mu nini": "cansado",
+  "kiki vivi": "emocionado",
+  "yii wu": "sorprendido",
+  "mi-mi ti": "hoy",
+  "mii ni": "mañana",
+  "ru ni": "ayer",
+  "wu wu": "siempre",
+  "nini nini": "nunca",
 };
 
 const esAlphabet = {
