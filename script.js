@@ -112,21 +112,28 @@ function translateBrToEs(text) {
   const tokens = text.trim().toLowerCase().split(/\s+/).filter(Boolean);
   if (!tokens.length) return { text: '', breakdown: '' };
 
-  let result = '';
+  const words = [];
+  let letterBuffer = '';
   const detail = [];
-  tokens.forEach((t, i) => {
+
+  tokens.forEach(t => {
     if (brToEs[t]) {
-      result += brToEs[t];
-      if (i < tokens.length - 1) result += ' ';
+      if (letterBuffer) {
+        words.push(letterBuffer);
+        letterBuffer = '';
+      }
+      words.push(brToEs[t]);
       detail.push(`${t}→${brToEs[t]}`);
     } else {
       const ch = brAlphabet[t] || '';
-      result += ch;
+      letterBuffer += ch;
       detail.push(`${t}→${ch}`);
     }
   });
 
-  return { text: result, breakdown: detail.join(' | ') + ' |' };
+  if (letterBuffer) words.push(letterBuffer);
+
+  return { text: words.join(' '), breakdown: detail.join(' | ') + ' |' };
 }
 
 function clearResult() {
