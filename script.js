@@ -1,5 +1,5 @@
 const esToBr = {
-  "hola":"mimi", "culona":"muku", "queso":"miupi", "yo":"mi", "tu":"ti",
+  "hola":"mimi", "culona":"muku", "queso":"miupi", "yo":"mmi", "tu":"ti",
   "usted":"usti", "el":"mu", "ella":"mimiu", "nosotros":"nosi",
   "ellos":"lomu", "ellas":"momi", "de":"miu", "la":"my", "en":"nui",
   "y":"yii", "a":"mi", "los":"lisi", "las":"lasi", "un":"numi",
@@ -29,7 +29,7 @@ const esToBr = {
 };
 
 const brToEs = {
-  "mimi":"hola", "muku":"culona", "miupi":"queso", "mi":"yo", "ti":"tu",
+  "mimi":"hola", "muku":"culona", "miupi":"queso", "mmi":"yo", "ti":"tu",
   "usti":"usted", "mu":"el", "mimiu":"ella", "nosi":"nosotros",
   "lomu":"ellos", "momi":"ellas", "miu":"de", "my":"la", "nui":"en",
   "yii":"y", "mi":"a", "lisi":"los", "lasi":"las", "numi":"un",
