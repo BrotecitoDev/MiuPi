@@ -21,7 +21,7 @@ const broteReserved = {
   "mi-mi": "hola",
   "mimi": "lindo",
   "miu pi": "queso",
-  "mei": "Meica",
+  "mei": "meica",
   "mimi-mi": "súper ternura",
   "xixi": "secreto",
   "miji": "juego",
