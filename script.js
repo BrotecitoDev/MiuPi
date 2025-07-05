@@ -100,35 +100,22 @@ function translateEsToBr(text) {
 }
 
 function translateBrToEs(text) {
-  const tokens = text.trim().split(/\s+/);
-  const words = [];
-  const detail = [];
-  let i = 0;
-  while (i < tokens.length) {
-    const two = i + 1 < tokens.length ? `${tokens[i]} ${tokens[i+1]}` : '';
-    if (brToEs[two]) {
-      words.push(brToEs[two]);
-      detail.push(`${two}→${brToEs[two]}`);
-      i += 2;
-      continue;
-    }
-    if (brToEs[tokens[i]]) {
-      words.push(brToEs[tokens[i]]);
-      detail.push(`${tokens[i]}→${brToEs[tokens[i]]}`);
-      i += 1;
-      continue;
-    }
-    // Unknown sequence: treat single token as syllable
-    const letters = [];
-    while (i < tokens.length && !brToEs[tokens[i]] && !(i+1 < tokens.length && brToEs[`${tokens[i]} ${tokens[i+1]}`])) {
-      letters.push(tokens[i]);
-      i++;
-    }
-    const word = letters.map(t => brAlphabet[t] || '').join('');
-    words.push(word);
-    detail.push(`${letters.join(' ')}→${word}`);
+  const cleaned = text.trim().toLowerCase();
+  if (!cleaned) return { text: '', breakdown: '' };
+
+  if (brToEs[cleaned]) {
+    return { text: brToEs[cleaned], breakdown: `${cleaned}→${brToEs[cleaned]} |` };
   }
-  return {text: words.join(' '), breakdown: detail.join(' | ') + ' |'};
+
+  const tokens = cleaned.split(/\s+/);
+  const letters = [];
+  const detail = [];
+  for (const t of tokens) {
+    const ch = brAlphabet[t] || '';
+    letters.push(ch);
+    detail.push(`${t}→${ch}`);
+  }
+  return { text: letters.join(''), breakdown: detail.join(' | ') + ' |' };
 }
 
 function clearResult() {
