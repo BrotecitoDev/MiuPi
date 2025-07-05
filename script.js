@@ -7,45 +7,56 @@ const dictionary = {
   'meica': 'mei'
 };
 
-// Mapping from characters to indices expected by the model
-const charToIndex = { m: 0, e: 1, i: 2, c: 3, a: 4 };
-// Mapping from model output indices to brote\u00f1ol tokens
-const indexToToken = ['mii', 'ni', 'mu', 'mii', 'mi'];
+// Simple letter-to-token mapping used when a word is not in the dictionary
+const letterRules = {
+  a: 'mi',
+  b: 'ba',
+  c: 'ci',
+  d: 'di',
+  e: 'ni',
+  f: 'fi',
+  g: 'gi',
+  h: 'ha',
+  i: 'mu',
+  j: 'ji',
+  k: 'ki',
+  l: 'li',
+  m: 'mii',
+  n: 'na',
+  o: 'oi',
+  p: 'pi',
+  q: 'ku',
+  r: 'ri',
+  s: 'si',
+  t: 'ti',
+  u: 'u',
+  v: 'vi',
+  w: 'wa',
+  x: 'xi',
+  y: 'yi',
+  z: 'zi',
+  'ñ': 'niu'
+};
 
-let modelPromise;
-
-function loadModel() {
-  if (!modelPromise) {
-    modelPromise = tf.loadLayersModel('model.json');
-  }
-  return modelPromise;
-}
-
-async function translateWord(word) {
+function translateWord(word) {
   if (dictionary[word]) {
     return { text: dictionary[word], details: [`${word}: ${dictionary[word]}`] };
   }
-  const model = await loadModel();
+
   const letters = word.split('');
   const tokens = [];
   const details = [`${word}:`];
 
   for (const l of letters) {
-    const idx = charToIndex[l] !== undefined ? charToIndex[l] : 0;
-    const input = tf.tensor2d([[idx]]);
-    const result = model.predict(input);
-    const outIdx = result.argMax(-1).dataSync()[0];
-    const token = indexToToken[outIdx] || '?';
+    const token = letterRules[l] || l;
     tokens.push(token);
     details.push(`  ${l}\u2192${token}`);
-    input.dispose();
-    result.dispose();
   }
 
   return { text: tokens.join(' '), details };
 }
 
-async function translate() {
+function translate() {
   const text = document.getElementById('inputText').value.trim().toLowerCase();
   if (!text) return;
 
@@ -54,12 +65,13 @@ async function translate() {
   const breakdown = [];
 
   for (const w of words) {
-    const res = await translateWord(w);
+    const res = translateWord(w);
     translated.push(res.text);
     breakdown.push(...res.details);
   }
 
-  document.getElementById('outputText').innerText = translated.join(' ') + '\n\n' + breakdown.join('\n');
+  document.getElementById('outputText').innerText =
+    translated.join(' ') + '\n\n' + breakdown.join('\n');
 }
 
 document.addEventListener('DOMContentLoaded', () => {
