@@ -1,5 +1,5 @@
 const esToBrRaw = {
-  "hola":"mi-mi", "adios":"bai-mi", "gracias":"mimi-mi mu", "por":"mii",
+  "hola":"mi--mi", "adios":"bai-mi", "gracias":"mimi-mi mu", "por":"mii",
   "favor":"xixi", "perdón":"ni-ni mii", "te":"mi-mi", "amo":"mi",
   "quiero":"mi", "amor":"mi mi", "feliz":"vivi", "triste":"nini",
   "miedo":"ru-ni", "secreto":"xixi", "risa":"miji", "juego":"miji",
@@ -13,8 +13,8 @@ const esToBrRaw = {
 };
 
 const brToEs = {
-  "mi-mi":"hola", "bai-mi":"adios", "mimi-mi mu":"gracias", "mii":"por",
-  "xixi":"favor", "ni-ni mii":"perdón", "mi":"amo", "mi mi":"amor",
+  "mi--mi":"hola", "bai-mi":"adios", "mimi-mi mu":"gracias", "mii":"por",
+  "xixi":"favor", "ni-ni mii":"perdón", "mi-mi":"te", "mi":"amo", "mi mi":"amor",
   "vivi":"feliz", "nini":"triste", "ru-ni":"miedo", "miji":"juego",
   "yii-mei":"magia", "miu pi":"queso", "mimi":"pequeño", "mii mii":"grande",
   "vivi ti":"rápido", "ti mu":"lento", "mimi mu":"suave", "mei ru":"duro",
