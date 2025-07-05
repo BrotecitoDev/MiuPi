@@ -1,181 +1,34 @@
-// Traductor bidireccional a Broteñol
+let model;
+const spanish = ['hola','adios','gracias','queso','amor'];
+const brote = ['mi-mi','bai-mi','mimi-mi mu','miu pi','mi mi'];
+const wordToId = {};
+spanish.forEach((w,i)=>{wordToId[w]=i;});
 
-// Diccionario de palabras completas
-const dictionary = {
-  "hola": "mi-mi",
-  "lindo": "mimi",
-  "queso": "miu pi",
-  "gracias": "mimi-mi mu",
-  "amo": "mi",
-  "te": "mi-mi",
-  "secreto": "xixi",
-  "juego": "miji",
-  "feliz": "vivi",
-  "triste": "nini",
-  "meica": "mei"
-};
-
-
-// Palabras broteñolas reservadas para traducción inversa
-const broteReserved = {
-  "mi-mi": "hola",
-  "mimi": "lindo",
-  "miu pi": "queso",
-  "mei": "meica",
-  "mimi-mi": "súper ternura",
-  "xixi": "secreto",
-  "miji": "juego",
-  "vivi": "feliz",
-  "nini": "triste"
-};
-
-// Abecedario letra a broteñol
-const alphabet = {
-  a: "mi",
-  b: "mimi",
-  c: "mii",
-  d: "mei",
-  e: "ni",
-  f: "mu",
-  g: "pi",
-  h: "miji",
-  i: "mu",
-  j: "mei",
-  k: "miu",
-  l: "mimi",
-  m: "mii",
-  n: "ni",
-  o: "mu",
-  p: "pi",
-  q: "ku",
-  r: "ru",
-  s: "si",
-  t: "ti",
-  u: "mu",
-  v: "vivi",
-  w: "wu",
-  x: "xixi",
-  y: "yii",
-  z: "zizi"
-};
-
-const inverseAlphabet = {};
-for (const [letter, brote] of Object.entries(alphabet)) {
-  inverseAlphabet[brote] = letter;
+async function loadModel() {
+  model = await tf.loadLayersModel('model.json');
 }
 
-function limpiarYTraducir() {
-  document.getElementById("outputText").innerText = "";
-  traducir();
-}
-
-function detectBrote(text) {
-  const lower = text.toLowerCase();
-  return Object.keys(broteReserved).some((w) => lower.includes(w));
-}
-
-function wordToBroteByLetters(word) {
-  const parts = [];
-  const detail = [];
-  for (const ch of word) {
-    const lower = ch.toLowerCase();
-    if (alphabet[lower]) {
-      parts.push(alphabet[lower]);
-      detail.push(`${ch}→${alphabet[lower]}`);
-    } else {
-      parts.push(ch);
-      detail.push(`${ch}→${ch}`);
-    }
-  }
-  return { text: parts.join(" "), breakdown: detail };
-}
-
-function toBrote(text) {
-  const words = text.trim().split(/\s+/);
-  const result = [];
-  const breakdown = [];
-  for (const original of words) {
-    const lower = original.toLowerCase();
-    if (lower === "meica") {
-      result.push("mei");
-      breakdown.push("- meica → mei");
-    } else if (dictionary[lower]) {
-      result.push(dictionary[lower]);
-      breakdown.push(`${original} → ${dictionary[lower]}`);
-    } else if (lower === "diego") {
-      result.push("mie");
-      breakdown.push(`${original} → mie`);
-    } else {
-      const byLetters = wordToBroteByLetters(original);
-      result.push(byLetters.text);
-      breakdown.push(
-        `${original}:\n${byLetters.breakdown.map((d) => "  " + d).join("\n")}`
-      );
-    }
-  }
-  return { text: result.join(" "), breakdown: breakdown.join("\n") };
-}
-
-function broteWordToLetters(word) {
-  const syllables = word.split(/-+/);
-  const letters = [];
-  const detail = [];
-  for (const s of syllables) {
-    if (inverseAlphabet[s]) {
-      letters.push(inverseAlphabet[s]);
-      detail.push(`${s}→${inverseAlphabet[s]}`);
-    } else {
-      letters.push(s);
-      detail.push(`${s}→${s}`);
-    }
-  }
-  return { text: letters.join(""), breakdown: detail };
-}
-
-function fromBrote(text) {
-  const words = text.toLowerCase().trim().split(/\s+/);
-  const result = [];
-  const breakdown = [];
-  let i = 0;
-  while (i < words.length) {
-    const current = words[i];
-    const next = words[i + 1];
-    const pair = next ? `${current} ${next}` : null;
-    if (pair && broteReserved[pair]) {
-      result.push(broteReserved[pair]);
-      breakdown.push(`${pair} → ${broteReserved[pair]}`);
-      i += 2;
+async function translate() {
+  const text = document.getElementById('inputText').value.trim().toLowerCase();
+  if(!text || !model) return;
+  const words = text.split(/\s+/);
+  const out = [];
+  for(const w of words) {
+    const id = wordToId[w];
+    if(id === undefined) {
+      out.push('[desconocido]');
       continue;
     }
-    if (broteReserved[current]) {
-      result.push(broteReserved[current]);
-      breakdown.push(`${current} → ${broteReserved[current]}`);
-    } else {
-      const byLetters = broteWordToLetters(current);
-      result.push(byLetters.text);
-      breakdown.push(
-        `${current}:\n${byLetters.breakdown.map((d) => "  " + d).join("\n")}`
-      );
-    }
-    i += 1;
+    const input = tf.tensor2d([[id]]);
+    const pred = model.predict(input);
+    const idx = (await pred.argMax(-1).data())[0];
+    out.push(brote[idx]);
+    tf.dispose([input,pred]);
   }
-  return { text: result.join(" "), breakdown: breakdown.join("\n") };
+  document.getElementById('outputText').innerText = out.join(' ');
 }
 
-function traducir() {
-  const input = document.getElementById("inputText").value.trim();
-  const outputDiv = document.getElementById("outputText");
-  outputDiv.innerText = "";
-  if (!input) {
-    return;
-  }
-  if (input === "Diego") {
-    outputDiv.innerHTML =
-      '<img src="https://cdn.discordapp.com/emojis/1072634447196864644.webp?size=128" alt="Diego emoji"/>';
-    return;
-  }
-  const isBrote = detectBrote(input);
-  const result = isBrote ? fromBrote(input) : toBrote(input);
-  const output = `${result.text}\n\n🌱 Desglose:\n${result.breakdown}`;
-  outputDiv.innerText = output;
-}
+document.addEventListener('DOMContentLoaded', ()=>{
+  loadModel();
+  document.getElementById('translateBtn').addEventListener('click', translate);
+});
