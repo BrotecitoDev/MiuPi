@@ -76,6 +76,7 @@ const brAlphabet = {};
 for (const [letter, token] of Object.entries(esAlphabet)) {
   if (!brAlphabet[token]) brAlphabet[token] = letter;
 }
+const brTokens = Object.keys(brAlphabet).sort((a,b) => b.length - a.length);
 
 function normalize(str) {
   return str.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
@@ -84,6 +85,27 @@ function normalize(str) {
 const esToBr = {};
 for (const [k,v] of Object.entries(esToBrRaw)) {
   esToBr[normalize(k)] = v;
+}
+
+function parseBrWord(word) {
+  let i = 0;
+  let letters = '';
+  while (i < word.length) {
+    let found = false;
+    for (const tok of brTokens) {
+      if (word.startsWith(tok, i)) {
+        letters += brAlphabet[tok] || '';
+        i += tok.length;
+        found = true;
+        break;
+      }
+    }
+    if (!found) {
+      letters += word[i];
+      i++;
+    }
+  }
+  return letters;
 }
 
 function translateEsToBr(text) {
@@ -100,7 +122,7 @@ function translateEsToBr(text) {
       for (const ch of key) {
         tokens.push(esAlphabet[ch] || ch);
       }
-      const tr = tokens.join(' ');
+      const tr = tokens.join('');
       result.push(tr);
       detail.push(`${w}→${tr}`);
     }
@@ -113,25 +135,18 @@ function translateBrToEs(text) {
   if (!tokens.length) return { text: '', breakdown: '' };
 
   const words = [];
-  let letterBuffer = '';
   const detail = [];
 
   tokens.forEach(t => {
     if (brToEs[t]) {
-      if (letterBuffer) {
-        words.push(letterBuffer);
-        letterBuffer = '';
-      }
       words.push(brToEs[t]);
       detail.push(`${t}→${brToEs[t]}`);
     } else {
-      const ch = brAlphabet[t] || '';
-      letterBuffer += ch;
-      detail.push(`${t}→${ch}`);
+      const letters = parseBrWord(t);
+      words.push(letters);
+      detail.push(`${t}→${letters}`);
     }
   });
-
-  if (letterBuffer) words.push(letterBuffer);
 
   return { text: words.join(' '), breakdown: detail.join(' | ') + ' |' };
 }
