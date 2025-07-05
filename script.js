@@ -108,7 +108,9 @@ function toBrote(text) {
     } else {
       const byLetters = wordToBroteByLetters(original);
       result.push(byLetters.text);
-      breakdown.push(`${original}:\n  ${byLetters.breakdown.join("\n  ")}`);
+      breakdown.push(
+        `${original}:\n${byLetters.breakdown.map((d) => "  " + d).join("\n")}`
+      );
     }
   }
   return { text: result.join(" "), breakdown: breakdown.join("\n") };
@@ -151,7 +153,9 @@ function fromBrote(text) {
     } else {
       const byLetters = broteWordToLetters(current);
       result.push(byLetters.text);
-      breakdown.push(`${current}:\n  ${byLetters.breakdown.join("\n  ")}`);
+      breakdown.push(
+        `${current}:\n${byLetters.breakdown.map((d) => "  " + d).join("\n")}`
+      );
     }
     i += 1;
   }
