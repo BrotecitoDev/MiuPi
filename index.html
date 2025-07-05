@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <title>Traductor a Broteñol 🌱 - MiuPi</title>
+  <meta charset="UTF-8">
+  <title>Traductor a Broteñol</title>
   <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
 </head>
 <body>
-  <h1>🌱 Traductor a Broteñol</h1>
-  <textarea id="inputText" placeholder="Escribe aquí en Español, Inglés, Japonés o Broteñol..."></textarea><br>
-  <button onclick="limpiarYTraducir()">Traducir</button>
+  <h1>Traductor a Broteñol</h1>
+  <textarea id="inputText" placeholder="Escribe en español"></textarea><br>
+  <button id="translateBtn">Traducir</button>
   <div id="outputText"></div>
 
   <script src="script.js"></script>
