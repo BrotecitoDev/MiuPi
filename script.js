@@ -67,7 +67,7 @@ for (const [letter, brote] of Object.entries(alphabet)) {
 }
 
 function limpiarYTraducir() {
-  document.getElementById("outputText").innerHTML = "";
+  document.getElementById("outputText").innerText = "";
   traducir();
 }
 
@@ -166,7 +166,7 @@ function fromBrote(text) {
 function traducir() {
   const input = document.getElementById("inputText").value.trim();
   const outputDiv = document.getElementById("outputText");
-  outputDiv.innerHTML = "";
+  outputDiv.innerText = "";
   if (!input) {
     return;
   }
