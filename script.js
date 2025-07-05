@@ -23,7 +23,9 @@ const esToBr = {
   "ventana":"veni", "mesa":"mesi", "silla":"sili", "juego":"miji",
   "musica":"musi", "baile":"bai", "fiesta":"fesi", "hermosa":"miyi",
   "princesa":"muki", "pene":"mupi", "muslo":"miwu", "tetona":"misi",
-  "pinchechota":"muzi"
+  "pinchechota":"muzi",
+  "meica":"mei",
+  "diego":"mie"
 };
 
 const brToEs = {
@@ -50,7 +52,8 @@ const brToEs = {
   "luzi":"luz", "puti":"puerta", "veni":"ventana", "mesi":"mesa",
   "sili":"silla", "miji":"juego", "musi":"musica", "bai":"baile",
   "fesi":"fiesta", "miyi":"hermosa", "muki":"princesa", "mupi":"pene",
-  "miwu":"muslo", "misi":"tetona", "muzi":"pinchechota"
+  "miwu":"muslo", "misi":"tetona", "muzi":"pinchechota",
+  "mei":"meica", "mie":"diego"
 };
 
 const esAlphabet = {
@@ -144,22 +147,37 @@ function showResult(res) {
 }
 
 function handleToBro() {
-  const text = document.getElementById('text-input').value;
+  const input = document.getElementById('text-input');
+  const text = input.value;
   if (!text.trim()) return;
+  if (text !== text.toLowerCase()) {
+    alert("No se permiten mayúsculas");
+    return;
+  }
   clearResult();
   const res = translateEsToBr(text);
   showResult(res);
 }
 
 function handleToEs() {
-  const text = document.getElementById('text-input').value;
+  const input = document.getElementById('text-input');
+  const text = input.value;
   if (!text.trim()) return;
+  if (text !== text.toLowerCase()) {
+    alert("No se permiten mayúsculas");
+    return;
+  }
   clearResult();
   const res = translateBrToEs(text.toLowerCase());
   showResult(res);
 }
 
 window.addEventListener('DOMContentLoaded', () => {
+  const input = document.getElementById('text-input');
+  input.addEventListener('input', () => {
+    const lower = input.value.toLowerCase();
+    if (input.value !== lower) input.value = lower;
+  });
   document.getElementById('to-bro').addEventListener('click', handleToBro);
   document.getElementById('to-es').addEventListener('click', handleToEs);
 });
