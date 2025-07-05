@@ -109,22 +109,31 @@ function translateEsToBr(text) {
         tokens.push(esAlphabet[ch] || ch);
       }
       const tr = tokens.join(' ');
-      result.push(tr);
-      detail.push(`${w}→${tr}`);
+      result.push(`"${tr}"`);
+      detail.push(`${w}→"${tr}"`);
     }
   }
   return {text: result.join(' '), breakdown: detail.join(' | ') + ' |'};
 }
 
 function translateBrToEs(text) {
-  const tokens = text.trim().toLowerCase().split(/\s+/).filter(Boolean);
+  const tokens = text.trim().toLowerCase().match(/"[^"]+"|\S+/g) || [];
   if (!tokens.length) return { text: '', breakdown: '' };
 
   const words = [];
   const detail = [];
 
   tokens.forEach(t => {
-    if (brToEs[t]) {
+    if (t.startsWith('"') && t.endsWith('"')) {
+      const inside = t.slice(1, -1).trim();
+      const parts = inside.split(/\s+/).filter(Boolean);
+      let letters = '';
+      parts.forEach(p => {
+        letters += brAlphabet[p] || parseBrWord(p);
+      });
+      words.push(letters);
+      detail.push(`${t}→${letters}`);
+    } else if (brToEs[t]) {
       words.push(brToEs[t]);
       detail.push(`${t}→${brToEs[t]}`);
     } else {
