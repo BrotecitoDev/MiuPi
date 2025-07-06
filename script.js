@@ -23,9 +23,9 @@ const esToBr = {
   "ventana":"veni", "mesa":"mesi", "silla":"sili", "juego":"miji",
   "musica":"musi", "baile":"bai", "fiesta":"fesi", "hermosa":"miyi",
   "princesa":"muki", "pene":"mupi", "muslo":"miwu", "tetona":"misi",
-  "pinchechota":"muzi", "miy":"te", "sensei":"miisei", "maestro":"miisei",
-  "meica":"mei", "te":"miy", "xd":"xidii", 
-  "diego":"mie"
+  "pinchechota":"muzi", "miy":"te", "meica":"mei", "te":"miy", "xd":"xidii",
+  "diego":"mie", "sensei":"miisei", "maestro":"miisei"
+
 };
 
 const brToEs = {
@@ -52,9 +52,9 @@ const brToEs = {
   "luzi":"luz", "puti":"puerta", "veni":"ventana", "mesi":"mesa",
   "sili":"silla", "miji":"juego", "musi":"musica", "bai":"baile",
   "fesi":"fiesta", "miyi":"hermosa", "muki":"princesa", "mupi":"pene",
-  "miwu":"muslo", "misi":"tetona", "muzi":"pinchechota", "miy":"te", "xidii":"xd", "miisei":"sensei", 
-  "miisei":"maestro", 
-  "mei":"meica", "mie":"diego" 
+  "miwu":"muslo", "misi":"tetona", "muzi":"pinchechota", "miy":"te",  
+  "miisei":"maestro", "mei":"meica", "mie":"diego", "xidii":"xd", "miisei":"sensei"
+ 
 };
 
 // Nuevo alfabeto broteñol sin colisiones
