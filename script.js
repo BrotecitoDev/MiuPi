@@ -53,8 +53,8 @@ const brToEs = {
   "sili":"silla", "miji":"juego", "musi":"musica", "bai":"baile",
   "fesi":"fiesta", "miyi":"hermosa", "muki":"princesa", "mupi":"pene",
   "miwu":"muslo", "misi":"tetona", "muzi":"pinchechota", "miy":"te",  
-  "maisei":"maestro", "mei":"meica", "mie":"diego", "xidii":"xd", "miisei":"sensei"
- 
+  "maisei":"maestro", "mei":"meica", "mie":"diego", "xidii":"xd", 
+  "miisei":"sensei"
 };
 
 // Nuevo alfabeto broteñol sin colisiones
