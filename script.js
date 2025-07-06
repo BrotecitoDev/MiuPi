@@ -24,8 +24,8 @@ const esToBr = {
   "musica":"musi", "baile":"bai", "fiesta":"fesi", "hermosa":"miyi",
   "princesa":"muki", "pene":"mupi", "muslo":"miwu", "tetona":"misi",
   "pinchechota":"muzi", "miy":"te", "meica":"mei", "te":"miy", "xd":"xidii",
-  "diego":"mie", "sensei":"miisei", "maestro":"maisei",
-  "maestro":"maisei"
+  "diego":"mie", "sensei":"miisei", "maestro":"maisei"
+  
 };
 
 const brToEs = {
