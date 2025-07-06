@@ -23,7 +23,7 @@ const esToBr = {
   "ventana":"veni", "mesa":"mesi", "silla":"sili", "juego":"miji",
   "musica":"musi", "baile":"bai", "fiesta":"fesi", "hermosa":"miyi",
   "princesa":"muki", "pene":"mupi", "muslo":"miwu", "tetona":"misi",
-  "pinchechota":"muzi", "miy":"te", "sensei":"miisei",
+  "pinchechota":"muzi", "miy":"te", "sensei":"miisei", "maestro":"miisei",
   "meica":"mei", "te":"miy", "xd":"xidii", 
   "diego":"mie"
 };
@@ -53,6 +53,7 @@ const brToEs = {
   "sili":"silla", "miji":"juego", "musi":"musica", "bai":"baile",
   "fesi":"fiesta", "miyi":"hermosa", "muki":"princesa", "mupi":"pene",
   "miwu":"muslo", "misi":"tetona", "muzi":"pinchechota", "miy":"te", "xidii":"xd", "miisei":"sensei", 
+  "miisei":"maestro", 
   "mei":"meica", "mie":"diego" 
 };
 
