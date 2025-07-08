@@ -24,38 +24,30 @@ const esToBr = {
   "musica":"musi", "baile":"bai", "fiesta":"fesi", "hermosa":"miyi",
   "princesa":"muki", "pene":"mupi", "muslo":"miwu", "tetona":"misi",
   "pinchechota":"muzi", "miy":"te", "meica":"mei", "te":"miy", "xd":"xidii",
-  "diego":"mie", "sensei":"miisei", "maestro":"maisei"
+  "diego":"mie", "sensei":"miisei", "maestro":"maisei",
+  "tengo":"miniki", "hacen":"kuriti", "amikos":"mibros",
+  "esperando":"miloti", "prenda":"kitemu", "stream":"nomei",
+  "asustado":"nininini", "estoy":"estimi", "dibujando":"pixili",
+  "vos":"tumi", "pe":"piqui", "esta":"muiya", "quedando":"sumiya",
+  "uff":"bufi", "bruatal":"krifi", "aunque":"sikimu",
+  "se":"aitu", "unas":"bropas", "letras":"siniki", "hay":"mimu",
+  "subilo":"altru", "chat":"hibrois", "potavar":"kirimi",
+  "bueno":"brini", "ojala":"kitsu", "le":"di", "agarre":"triku",
+  "ganas":"vitri", "jugar":"mikoti", "repo":"rukai",
+  "botecitos":"britinis", "descanen":"mimiri", "amagos":"xixu",
+  "hablan":"bripirly", "estan":"koni", "reforzando":"mofirti",
+  "amasta":"mimiuki", "alumano":"humoti", "verdad":"ferdi",
+  "vez":"zukai", "hace":"haku", "pucho":"puchu", "sueno":"ninifi",
+  "sueño":"oyminini", "descanse":"susimi", "botapaus":"bripiuhi",
+  "necesito":"nekiti", "sección":"misitiri", "beso":"pimua",
+  "necesita":"nikis", "doble":"dodi", "je":"ki",
+};
   
-};
+const brToEs = {};
+for (const [es, br] of Object.entries(esToBr)) {
+  if (!brToEs[br]) brToEs[br] = es;
+}
 
-const brToEs = {
-  "mimi":"hola", "muku":"culona", "miupi":"queso", "mmi":"yo", "ti":"tu",
-  "usti":"usted", "mu":"el", "mimiu":"ella", "nosi":"nosotros",
-  "lomu":"ellos", "momi":"ellas", "miu":"de", "my":"la", "nui":"en",
-  "yii":"y", "mi":"a", "lisi":"los", "lasi":"las", "numi":"un",
-  "nami":"una", "mii":"por", "muu":"con", "paru":"para", "suni":"sin",
-  "miku":"del", "mila":"al", "soi":"soy", "ersi":"eres", "esi":"es",
-  "somi":"somos", "suni":"son", "ku":"que", "miomu":"como", "kuni":"cuando",
-  "doni":"donde", "quin":"quien", "kuli":"cual", "poku":"porque",
-  "peru":"pero", "miisi":"mas", "menoi":"menos", "muyi":"muy",
-  "todu":"todo", "nami":"nada", "alpi":"algo", "sii":"si", "nuimu":"no",
-  "ya":"ya", "auri":"ahora", "desu":"despues", "anti":"antes", "mui":"mi",
-  "misi":"mis", "tiu":"tu", "tusi":"tus", "sumi":"su", "susi":"sus",
-  "nusu":"nuestro", "nusis":"nuestros", "mimiti":"hoy", "miini":"mañana",
-  "runi":"ayer", "wuwu":"siempre", "ninin":"nunca", "mimiu":"amor", "mimiu":"amo",
-  "mimo":"amigo", "fami":"familia", "cami":"casa", "tamu":"trabajo",
-  "escu":"escuela", "dini":"dinero", "temu":"tiempo", "mumi":"mano",
-  "omu":"ojo", "bomi":"boca", "kabi":"cabeza", "kori":"corazon",
-  "vify":"feliz", "nini":"triste", "runi":"miedo", "noku":"enojo",
-  "miji":"risa", "sumi":"sueño", "hami":"hambre", "semi":"sed",
-  "agu":"agua", "codi":"comida", "cochi":"coche", "kali":"calle",
-  "luzi":"luz", "puti":"puerta", "veni":"ventana", "mesi":"mesa",
-  "sili":"silla", "miji":"juego", "musi":"musica", "bai":"baile",
-  "fesi":"fiesta", "miyi":"hermosa", "muki":"princesa", "mupi":"pene",
-  "miwu":"muslo", "misi":"tetona", "muzi":"pinchechota", "miy":"te",  
-  "maisei":"maestro", "mei":"meica", "mie":"diego", "xidii":"xd", 
-  "miisei":"sensei"
-};
 
 // Nuevo alfabeto broteñol sin colisiones
 const esAlphabet = {
